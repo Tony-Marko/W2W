@@ -8,36 +8,30 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 from flask_bcrypt import Bcrypt 
 bcrypt = Bcrypt(app) 
 
-db = 'login_schema'
+db = 'w2w'
 
 class Register:
     def __init__(self, data):
         self.id = data['id']
-        self.first_name = data['first_name']
-        self.last_name = data['last_name']
         self.email = data['email']
         self.password = data['password']
 
     @classmethod
     def new_user(cls, data):
         print("*******", data)
-        query = """INSERT INTO users (first_name, last_name, email, password)
-                VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);
+        query = """INSERT INTO users (email, password)
+                VALUES (%(email)s, %(password)s);
                 """
         result = connectToMySQL(db).query_db(query,data)
         print (result)
         return result
 
-    @staticmethod
+    @staticmethod #fix password validate: 1234567890 works
     def validate(newuser):
         is_valid = True
-        #first name
-        if len(newuser['first_name'])<1:
-            flash("First name is required", 'error')
-            is_valid = False
-        #last name
-        if len(newuser['last_name'])<1:
-            flash("Last name is required", 'error')
+        #email null
+        if len(newuser['email'])<1:
+            flash("An email is required", 'error')
             is_valid = False
         #email
         if not EMAIL_REGEX.match(newuser['email']):
@@ -61,8 +55,6 @@ class Register:
     @staticmethod
     def parsed_data(data):
         parsed_data = {}
-        parsed_data['first_name'] = data['first_name']
-        parsed_data['last_name'] = data['last_name']
         parsed_data['email'] = data['email'].lower()
         parsed_data['password'] = bcrypt.generate_password_hash(data['password'])
         return parsed_data        

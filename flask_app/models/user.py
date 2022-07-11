@@ -6,7 +6,7 @@ bcrypt = Bcrypt(app)
 pw_hash = bcrypt.generate_password_hash('hunter2')
 bcrypt.check_password_hash(pw_hash, 'hunter2') 
 
-db = 'login_schema'
+db = 'w2w'
 
 class User:
     def __init__(self,data):

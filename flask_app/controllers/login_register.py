@@ -5,22 +5,12 @@ bcrypt = Bcrypt(app)
 
 from flask_app.models.user import User
 from flask_app.models.register import Register
+from flask_app.models.profile import Profile
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
-@app.route('/register', methods = ['post'])
-def register():
-    if not Register.validate(request.form):
-        return redirect ('/')
-    data = Register.parsed_data(request.form)
-    user_id = Register.new_user(data)
-    session['user_id'] = user_id
-    session['first_name'] = request.form['first_name']
-    session['last_name'] = request.form['last_name']
-    return redirect ('/success')
 
 @app.route('/login', methods = ['post'])
 def login():
@@ -33,16 +23,46 @@ def login():
         flash("Invalid Email/Password", "loginmessage")
         return redirect ('/')
     session['user_id'] = user_in_db.id
-    session['first_name'] = user_in_db.first_name
-    session['last_name'] = user_in_db.last_name
-    return redirect ('/success')
+    return redirect ('/dashboard')
     
-@app.route('/success')
-def success():
+@app.route('/dashboard')
+def dashboard():
     if 'user_id' not in session:
         flash("Please log back in")
         return redirect ('/')
-    return render_template ('success.html')
+    return render_template ('dashboard.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/process', methods = ['post'])
+def process():
+    if not Register.validate(request.form):
+        return redirect ('/register')
+    data = Register.parsed_data(request.form)
+    user_id = Register.new_user(data)
+    session['user_id'] = user_id
+    return redirect ('/profile')
+
+@app.route('/profile')
+def profile():
+    return render_template ('profile.html')
+
+@app.route('/createprofile', methods = ['post'])
+def createprofile():
+    if not Profile.validate(request.form):
+        return redirect ('/profile')
+    data = Profile.parsed_data(request.form)
+    newprofile = Profile.new_profile(data)
+    return redirect ('/dashboard')
+
+#login-register-profile works!
+
+
+
+
+
 
 @app.route('/logout')
 def logout():
