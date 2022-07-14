@@ -11,11 +11,26 @@
 
 </head>
 <body>
-    <div class="container bg-dark text-light p-sm-2">
+    <div class="container bg-light text-dark p-sm-2">
         <div class="row">
-            <div class="col-sm-5">
-                <h2 class="text-bg-primary">Welcome {{session.first_name}}</h2>
-                <a href="/logout"><button class="btn-primary p-2">Logout</button></a>
+            <div class="col-sm-8">
+                <h2 class="text-dark m-3">Welcome {{userinfo.first_name}}</h2>
+            </div>
+            <!-- I should replace all this with a nav bar, put on all pages, and delete this one -->
+            <div class="row">
+                <div class="col-4 justify-content-start">
+                    <div><a href="/myprofile"><button class="btn-dark m-3 p-2">My profile</button></a></div>
+                    <div><a href="/wardrobe"><button class="btn-dark m-3 p-2">My wardrobe</button></a></div>
+                    <div><a href="/additem"><button class="btn-dark m-3 p-2">Add an Item</button></a></div>
+                    <div><a href="/oufits"><button class="btn-dark m-3 p-2">My Oufits</button></a></div>
+                    <div><a href="/createoutfit"><button class="btn-dark m-3 p-2">Create an Outfit</button></a></div>
+                    <div><a href="/randomize"><button class="btn-dark m-3 p-2">Randomize!</button></a></div>
+                    <div><a href="/logout"><button class="btn-dark m-3 p-2">Logout</button></a></div>
+                </div>
+                <div class="col-4">
+                    <!-- Placeholder, use bootstrap carousel -->
+                    <img src="..." class="img-thumbnail" alt="..."> 
+                </div>
             </div>
         </div>
     </div>

@@ -25,13 +25,6 @@ def login():
     session['user_id'] = user_in_db.id
     return redirect ('/dashboard')
     
-@app.route('/dashboard')
-def dashboard():
-    if 'user_id' not in session:
-        flash("Please log back in")
-        return redirect ('/')
-    return render_template ('dashboard.html')
-
 @app.route('/register')
 def register():
     return render_template('register.html')
@@ -43,25 +36,57 @@ def process():
     data = Register.parsed_data(request.form)
     user_id = Register.new_user(data)
     session['user_id'] = user_id
-    return redirect ('/profile')
+    return redirect ('/newprofile')
 
-@app.route('/profile')
+@app.route('/newprofile')
 def profile():
-    return render_template ('profile.html')
+    return render_template ('newprofile.html')
 
 @app.route('/createprofile', methods = ['post'])
 def createprofile():
     if not Profile.validate(request.form):
-        return redirect ('/profile')
+        return redirect ('/newprofile')
     data = Profile.parsed_data(request.form)
     newprofile = Profile.new_profile(data)
     return redirect ('/dashboard')
 
+@app.route('/myprofile')
+def myprofile():
+    if 'user_id' not in session:
+        flash("Please log back in")
+        return redirect ('/')
+    data = {'user_id' : session['user_id']}
+    userinfo = Profile.get_profile_by_id(data)
+    return render_template ('myprofile.html', userinfo =userinfo)
+
+@app.route('/editprofile')
+def editprofile():
+    if 'user_id' not in session:
+        flash("Please log back in")
+        return redirect ('/')
+    data = {'user_id' : session['user_id']}
+    userinfo = Profile.get_profile_by_id(data)
+    return render_template ('editprofile.html', userinfo =userinfo)
+
+@app.route('/editmyprofile', methods = ['post'])
+def editmyprofile():
+    if not Profile.validate(request.form):
+        return redirect ('/editprofile')
+    data = Profile.parsed_data(request.form)
+    editedprofile = Profile.edit_my_profile(data)
+    return redirect ('/myprofile')
+
 #login-register-profile works!
 
-
-
-
+@app.route('/dashboard')
+def dashboard():
+    if 'user_id' not in session:
+        flash("Please log back in")
+        return redirect ('/')
+    data = {'user_id' : session['user_id']}
+    userinfo = Profile.get_profile_by_id(data)
+    session['profile_id'] = userinfo.id
+    return render_template ('dashboard.html', userinfo =userinfo)
 
 
 @app.route('/logout')
