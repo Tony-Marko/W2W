@@ -52,6 +52,7 @@ class Item:
         print (result)
         return cls(result[0])
 
+    
 
     @staticmethod
     def validate(newitem):
