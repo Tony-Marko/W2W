@@ -40,7 +40,7 @@ class Item:
         all_items = []
         for item in result:
             all_items.append(cls(item))
-        print("Get all result is", all_items)
+
         return all_items
         
 
@@ -66,6 +66,86 @@ class Item:
         result = connectToMySQL(db).query_db(query,data)
         print ("DDDEEELLLEEETTEEE result", result)
         return result
+
+#////// methods for outfits
+    @classmethod
+    def get_headwear(cls, data):
+        query = """SELECT * FROM items
+                JOIN profiles on items.profile_id = profiles.id
+                JOIN users on users.id = profiles.user_id
+                WHERE category LIKE 'headwear' and users.id =%(user_id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        all_headwear = []
+        for item in result:
+            all_headwear.append(cls(item))
+        print("Get all headwear result is", all_headwear)
+        return all_headwear
+
+    @classmethod
+    def get_top(cls, data):
+        query = """SELECT * FROM items
+                JOIN profiles on items.profile_id = profiles.id
+                JOIN users on users.id = profiles.user_id
+                WHERE category LIKE 'top' and users.id =%(user_id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        all_top = []
+        for item in result:
+            all_top.append(cls(item))
+        print("Get all TOP result is", all_top)
+        return all_top
+
+    @classmethod
+    def get_waist(cls, data):
+        query = """SELECT * FROM items
+                JOIN profiles on items.profile_id = profiles.id
+                JOIN users on users.id = profiles.user_id
+                WHERE category LIKE 'waist' and users.id =%(user_id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        all_waist = []
+        for item in result:
+            all_waist.append(cls(item))
+        print("Get all WAIST result is", all_waist)
+        return all_waist
+
+    @classmethod
+    def get_bottom(cls, data):
+        query = """SELECT * FROM items
+                JOIN profiles on items.profile_id = profiles.id
+                JOIN users on users.id = profiles.user_id
+                WHERE category LIKE 'bottom' and users.id =%(user_id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        all_bottom = []
+        for item in result:
+            all_bottom.append(cls(item))
+        print("Get all BOTTOM result is", all_bottom)
+        return all_bottom
+
+    @classmethod
+    def get_footwear(cls, data):
+        query = """SELECT * FROM items
+                JOIN profiles on items.profile_id = profiles.id
+                JOIN users on users.id = profiles.user_id
+                WHERE category LIKE 'footwear' and users.id =%(user_id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        all_footwear = []
+        for item in result:
+            all_footwear.append(cls(item))
+        print("Get all FOOTWEAR result is", all_footwear)
+        return all_footwear
+        
+    @classmethod
+    def get_accessory(cls, data):
+        query = """SELECT * FROM items
+                JOIN profiles on items.profile_id = profiles.id
+                JOIN users on users.id = profiles.user_id
+                WHERE category LIKE 'accessory' and users.id =%(user_id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        all_accessory = []
+        for item in result:
+            all_accessory.append(cls(item))
+        print("Get all ACCESSORY result is", all_accessory)
+        return all_accessory
+
 
     @staticmethod
     def validate(newitem):

@@ -5,19 +5,27 @@ from flask import render_template, redirect, request, session, flash
 from flask_app.models import item, outfit
 
 # # //////READ////////
-# @app.route("/wardrobe")
-# def wardrobe():
-#     if 'user_id' not in session:
-#         flash("Please log back in")
-#         return redirect ('/')
-#     return render_template ('wardrobe.html')
 
-# @app.route("/additem")
-# def additem():
-#     if 'user_id' not in session:
-#         flash("Please log back in")
-#         return redirect ('/')
-#     return render_template ('additem.html')
+@app.route("/outfits")
+def outfits():
+    if 'user_id' not in session:
+        flash("Please log back in")
+        return redirect ('/')
+    return render_template ('outfits.html')
+
+@app.route("/createoutfit")
+def createoutfit():
+    if 'user_id' not in session:
+        flash("Please log back in")
+        return redirect ('/')
+    data = {"user_id" : session['user_id'] }
+    all_headwear = item.Item.get_headwear(data)
+    all_top = item.Item.get_top(data)
+    all_waist = item.Item.get_waist(data)
+    all_bottom = item.Item.get_bottom(data)
+    all_footwear = item.Item.get_footwear(data)
+    all_accessory = item.Item.get_accessory(data)
+    return render_template ('createoutfit.html', all_headwear = all_headwear, all_top=all_top, all_waist= all_waist, all_bottom = all_bottom, all_footwear = all_footwear, all_accessory = all_accessory)
 
 # @app.route("/showitem")
 # def myitems():

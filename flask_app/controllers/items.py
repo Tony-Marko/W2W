@@ -50,11 +50,6 @@ def showitem(id):
     all_items = item.Item.get_all_items_by_user_id(data)
     return render_template ("showitem.html", all_items = all_items, gotitem = gotitem)
 
-# @app.route("/edititem/")
-# def no_item_to_edit():
-#         #FlASHMESSAGE   
-#         return redirect ('/showitem')
-
 @app.route("/edititem/<id>")
 def edititem(id):
     if 'user_id' not in session:
@@ -63,21 +58,6 @@ def edititem(id):
     data = {"id" : id }
     gotitem = item.Item.get_item_by_id(data)    
     return render_template ("edititem.html", gotitem = gotitem)
-
-@app.route("/outfits")
-def outfits():
-    if 'user_id' not in session:
-        flash("Please log back in")
-        return redirect ('/')
-    return render_template ('outfits.html')
-
-@app.route("/createoutfit")
-def createoutfit():
-    if 'user_id' not in session:
-        flash("Please log back in")
-        return redirect ('/')
-    return render_template ('createoutfit.html')
-
 @app.route("/randomize")
 def randomize():
     if 'user_id' not in session:
@@ -120,25 +100,4 @@ def deleteitem(id):
     data = {"id" : id }
     deleted_item = item.Item.delete_item(data)
     return redirect ("/showitem")
-
-
-
-# @app.route('/process', methods = ['post'])
-# def process():
-#     if not Register.validate(request.form):
-#         return redirect ('/register')
-#     data = Register.parsed_data(request.form)
-#     user_id = Register.new_user(data)
-#     session['user_id'] = user_id
-#     return redirect ('/profile')
-
-# @app.route('/createprofile', methods = ['post'])
-# def createprofile():
-#     if not Profile.validate(request.form):
-#         return redirect ('/profile')
-#     data = Profile.parsed_data(request.form)
-#     newprofile = Profile.new_profile(data)
-#     return redirect ('/dashboard')
-
-#login-register-profile works!
 

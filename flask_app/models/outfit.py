@@ -6,18 +6,17 @@ from flask_app.config.mysqlconnection import connectToMySQL
 
 db = 'w2w'
 
-# class Item:
-#     def __init__(self, data):
-#         self.id = data['id']
-#         self.name = data['name']
-#         self.category = data['category']
-#         self.type = data['type']
-#         self.brand = data['brand']
-#         self.size = data['size']
-#         self.color = data['color']
-#         self.price = data['price']
-#         self.image = data['image']
-#         self.profile_id = data['profile_id']
+class Outfit:
+    def __init__(self, data):
+        self.id = data['id']
+        self.headwear = data['headwear']
+        self.top = data['top']
+        self.waist = data['waist']
+        self.bottom = data['bottom']
+        self.footwear= data['footwear']
+        self.acc1 = data['acc1']
+        self.acc2 = data['acc2']
+        self.user_id = data['user_id']
 
 
 #     @classmethod  #new item maker 

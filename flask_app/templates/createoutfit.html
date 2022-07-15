@@ -14,7 +14,7 @@
     <div class="container bg-light text-dark p-sm-2">
         <div class="row">
             <div class="col-sm-8">
-                <h2 class="text-dark text-center m-3">Add an Item</h2>
+                <h2 class="text-dark text-center m-3">Create a New Outfit</h2>
             </div>
         </div>
         <div class="row">
@@ -72,6 +72,11 @@
                             {% for item in all_headwear%}
                             <option value="{{item.id}}">{{item.name}}</option>
                             {%endfor%}
+                            {%if all_headwear == []%}
+                            <option value="0">No item to select</option>
+                            {%else%}
+                            <option value="0">No headwear</option>
+                            {%endif%}
                         </select>
                     </div>
                     <div class="mb-1">
@@ -81,20 +86,96 @@
                             {% for item in all_top%}
                             <option value="{{item.id}}">{{item.name}}</option>
                             {%endfor%}
+                            {%if all_top == []%}
+                            <option value="0">No item to select</option>
+                            {%else%}
+                            <option value="0">Leave top out from outfit set</option>
+                            {%endif%}
                         </select>
                     </div>
-                    
                     <div class="mb-1">
-                        <label for="color" class="form-label">Color: (for multiple colors enter up to three colors)</label>
-                        <input type="text" class="form-control" name = 'color' id='color'>
+                        <label for="waist">Choose your waist:</label>
+                        <select class="form-select" aria-label="Default select example" name="waist" id="waist">
+                            <option selected value="reject">Select a category</option>
+                            {% for item in all_waist%}
+                            <option value="{{item.id}}">{{item.name}}</option>
+                            {%endfor%}
+                            {%if all_waist == []%}
+                            <option value="0">No item to select</option>
+                            {%else%}
+                            <option value="0">Leave waist empty</option>
+                            {%endif%}
+                        </select>
                     </div>
-                    <!-- <div class="mb-1">
-                        <label for="price" class="form-label">Price: (please use your local currency)</label>
-                        <input type="number" class="form-control" name = 'price' id='price' min="0">
-                        <input type="hidden" name="profile_id" value="{{session.profile_id}}"> 
-                        session.profile_id from @app.dashboard  --><!--
+                    <div class="mb-1">
+                        <label for="bottom">Choose your bottom:</label>
+                        <select class="form-select" aria-label="Default select example" name="bottom" id="bottom">
+                            <option selected value="reject">Select a category</option>
+                            {% for item in all_bottom%}
+                            <option value="{{item.id}}">{{item.name}}</option>
+                            {%endfor%}
+                            {%if all_bottom == []%}
+                            <option value="0">No item to select</option>
+                            {%else%}
+                            <option value="0">Leave bottom empty</option>
+                            {%endif%}
+                        </select>
                     </div>
-                    <div>
+                    <div class="mb-1">
+                        <label for="footwear">Choose your footwear:</label>
+                        <select class="form-select" aria-label="Default select example" name="footwear" id="footwear">
+                            <option selected value="reject">Select a category</option>
+                            {% for item in all_footwear%}
+                            <option value="{{item.id}}">{{item.name}}</option>
+                            {%endfor%}
+                            {%if all_footwear == []%}
+                            <option value="0">No item to select</option>
+                            {%else%}
+                            <option value="0">Leave footwear empty</option>
+                            {%endif%}
+                        </select>
+                    </div>
+                    <div class="mb-1">
+                        <label for="acc1">Choose your first accessory:</label>
+                        <select class="form-select" aria-label="Default select example" name="acc1" id="acc1">
+                            <option selected value="reject">Select a category</option>
+                            {% for item in all_accessory%}
+                            <option value="{{item.id}}">{{item.name}}</option>
+                            {%endfor%}
+                            {%if all_accessory == []%}
+                            <option value="0">No item to select</option>
+                            {%else%}
+                            <option value="0">Leave accessory slot empty</option>
+                            {%endif%}
+                        </select>
+                    </div>
+                    <div class="mb-1">
+                        <label for="acc2">Choose your second accessory:</label>
+                        <select class="form-select" aria-label="Default select example" name="acc2" id="acc2">
+                            <option selected value="reject">Select a category</option>
+                            {% for item in all_accessory%}
+                            <option value="{{item.id}}">{{item.name}}</option>
+                            {%endfor%}
+                            {%if all_accessory == []%}
+                            <option value="0">No item to select</option>
+                            {%else%}
+                            <option value="0">Leave accessory slot empty</option>
+                            {%endif%}
+                        </select>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                <div>
                         <label class="input-group-text mt-2" for="img">Add a picture</label>
                     </div>
                     <div>
