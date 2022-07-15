@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit My Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"> -->
+    
+
+</head>
+<body>
+    <div class="container bg-light text-dark p-sm-2">
+        <div class="row ">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <h2 class="text-center">Edit My Profile</h2>
+                <div class="bg-danger">
+                    {% with profileerror = get_flashed_messages(category_filter=["profileerror"])  %}
+                        {% if profileerror %}
+                            {% for message in profileerror %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                </div>
+                <form action="/editmyprofile" method="post">
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label">First Name:</label>
+                        <input type="text" class="form-control" name = 'first_name' id='first_name' value="{{userinfo.first_name}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label">Last Name:</label>
+                        <input type="text" class="form-control" name = 'last_name' id='last_name ' value="{{userinfo.last_name}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="birthday" class="form-label">birthday:</label>
+                        <input type="date" class="form-control" name = 'birthday' id='birthday' value="{{userinfo.birthday}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country of Residence:</label>
+                        <input type="text" class="form-control" name = 'country' id='country' value="{{userinfo.country}}">
+                        <input type="hidden" name="user_id" value="{{userinfo.id}}">
+                        <!-- note: we are passing the profile ID here, not the user ID -->
+                    </div>
+                    <button type="submit" class="btn btn-dark mb-md-2 mt-2">Edit My Profile</button>
+                    <a href="/myprofile"><button class="btn btn-dark mb-md-2 mt-2">Back to My Profile</button></a>
+                </form>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"> -->
+    
+
+</head>
+<body>
+    <div class="container bg-light text-dark p-sm-2">
+        <div class="row ">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <h2 class="text-center">My Profile</h2>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <p>Name: {{userinfo.first_name}} {{userinfo.last_name}}</p>
+                <p>Birthday: {{userinfo.birthday}}</p>
+                <p>Country or Residence: {{userinfo.country}}</p>
+                <a href="/editprofile"><button class ="btn-dark m-3 p-2"> Edit Profile</button></a>
+                <a href="/dashboard"><button class ="btn-dark m-3 p-2"> Go Back</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+</body>
+</html>
