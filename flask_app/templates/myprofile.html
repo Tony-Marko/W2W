@@ -13,7 +13,7 @@
 <body>
     <div class="container bg-light text-dark p-sm-2">
         <div class="row ">
-            <div class="col-sm-4"></div>
+            <div class="col-sm-3"></div>
             <div class="col-sm-4">
                 <h2 class="text-center">My Profile</h2>
             </div>
@@ -21,11 +21,45 @@
         </div>
         <div class="row">
             <div class="col-sm-4">
+                <div class="col-2 justify-content-start">
+                    <ul class="nav nav-tabs flex-column text-dark">
+                        <li class="nav-item text-dark">
+                            <a class="nav-link active" aria-current="page" href="/wardrobe">My Wardrobe</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Outfits</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/myoutfits">My Outfits</a></li>
+                                <li><a class="dropdown-item" href="/createoutfit">Create an Outfit</a></li>
+                                <li><a class="dropdown-item" href="/editoutfit">Edit an Outfit</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Items</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/showitem">My Items</a></li>
+                                <li><a class="dropdown-item" href="/additem">Add a New Item</a></li>
+                                <li><a class="dropdown-item" href="/edititem">Edit an Item</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="randomize" tabindex="-1" aria-disabled="true">Randomize! (Disabled)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/myprofile">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
                 <p>Name: {{userinfo.first_name}} {{userinfo.last_name}}</p>
                 <p>Birthday: {{userinfo.birthday}}</p>
                 <p>Country or Residence: {{userinfo.country}}</p>
-                <a href="/editprofile"><button class ="btn-dark m-3 p-2"> Edit Profile</button></a>
-                <a href="/dashboard"><button class ="btn-dark m-3 p-2"> Go Back</button></a>
+                <a href="/editprofile"><button class ="btn-dark mt-3 p-2"> Edit Profile</button></a>
+                <a href="/dashboard"><button class ="btn-dark mt-3 p-2"> Go Back</button></a>
             </div>
         </div>
     </div>

@@ -53,17 +53,17 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <form action="/showitem/", method="post">
+                <form action="/showitempost", method="post">
                 <label for="select">Choose your item:</label>
-                <select class="form-select" aria-label="Default select example" name="select" id="select">
+                <select class="form-select" aria-label="Default select example" name="select" id="select" required>
+                    <option selected value="reject">Select a category</option>
                     {% for item in all_items%}
                     <option value="{{item.id}}">{{item.name}}</option>
                     {%endfor%}
 
                 </select>
-                <button type="submit">This one!</button>
+                <button type="submit mt-1">This one!</button>
                 </form>
-
                 <p>Name: {{gotitem.name}}</p>
                 <p>Category: {{gotitem.category}}</p>
                 <p>Type: {{gotitem.type}}</p>
@@ -72,8 +72,10 @@
                 <p>Color: {{gotitem.color}}</p>
                 <p>Price: {{gotitem.price}}</p>
                 <!-- image code here -->
-                <a href="/editprofile"><button class ="btn-dark m-3 p-2"> Edit Item</button></a>
-                <a href="/dashboard"><button class ="btn-dark m-3 p-2"> Go Back</button></a>
+                {%if gotitem%}
+                <a href="/edititem/{{gotitem.id}}"><button class ="btn-dark mt-3 p-2"> Edit {{gotitem.name}}</button></a>
+                <a href="/deleteitem/{{gotitem.id}}"><button class ="btn-dark mt-3 p-2"> Delete {{gotitem.name}}</button></a>
+                {%endif%}
             </div>
         </div>
     </div>
