@@ -17,14 +17,14 @@ class Item:
         self.color = data['color']
         self.price = data['price']
         self.image = data['image']
-        self.profile_id = data['profile_id']
+        self.user_id = data['user_id']
 
 
     @classmethod  #new item maker 
     def new_item(cls, data):
         # print("*******", data)
-        query = """INSERT INTO items (name, category, type, brand, size, color, price, image, profile_id)
-                VALUES (%(name)s, %(category)s, %(type)s, %(brand)s, %(size)s, %(color)s, %(price)s, %(image)s, %(profile_id)s);
+        query = """INSERT INTO items (name, category, type, brand, size, color, price, image, user_id)
+                VALUES (%(name)s, %(category)s, %(type)s, %(brand)s, %(size)s, %(color)s, %(price)s, %(image)s, %(user_id)s);
                 """
         result = connectToMySQL(db).query_db(query,data)
         print ("Result is", result)
@@ -33,8 +33,7 @@ class Item:
     @classmethod #get all user's item
     def get_all_items_by_user_id(cls,data):
         query = """SELECT * from items
-                    # LEFT JOIN users on users.id = profiles.user_id
-                    # JOIN items on items.profile_id = profiles._id
+                    # LEFT JOIN users on users.id = items.user_id
                     # WHERE user.id = %(user_id)s;"""
         result = connectToMySQL(db).query_db(query,data)
         all_items = []
@@ -49,7 +48,18 @@ class Item:
         query = """SELECT * from items
                     WHERE id = %(id)s;"""
         result = connectToMySQL(db).query_db(query,data)
-        print (result)
+        # print (result)
+        return cls(result[0])
+
+    @classmethod #get an item
+    def get_item_for_outfit(cls, data):
+        if data == 0:
+            return "None"
+        data = {"id" : data}
+        query = """SELECT * from items
+                    WHERE id = %(id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        # print (result)
         return cls(result[0])
 
     @classmethod #edit items
@@ -71,79 +81,73 @@ class Item:
     @classmethod
     def get_headwear(cls, data):
         query = """SELECT * FROM items
-                JOIN profiles on items.profile_id = profiles.id
-                JOIN users on users.id = profiles.user_id
+                JOIN users on users.id = items.user_id
                 WHERE category LIKE 'headwear' and users.id =%(user_id)s;"""
         result = connectToMySQL(db).query_db(query,data)
         all_headwear = []
         for item in result:
             all_headwear.append(cls(item))
-        print("Get all headwear result is", all_headwear)
+        # print("Get all headwear result is", all_headwear)
         return all_headwear
 
     @classmethod
     def get_top(cls, data):
         query = """SELECT * FROM items
-                JOIN profiles on items.profile_id = profiles.id
-                JOIN users on users.id = profiles.user_id
+                JOIN users on users.id = items.user_id
                 WHERE category LIKE 'top' and users.id =%(user_id)s;"""
         result = connectToMySQL(db).query_db(query,data)
         all_top = []
         for item in result:
             all_top.append(cls(item))
-        print("Get all TOP result is", all_top)
+        # print("Get all TOP result is", all_top)
         return all_top
 
     @classmethod
     def get_waist(cls, data):
         query = """SELECT * FROM items
-                JOIN profiles on items.profile_id = profiles.id
-                JOIN users on users.id = profiles.user_id
+                JOIN users on users.id = items.user_id
                 WHERE category LIKE 'waist' and users.id =%(user_id)s;"""
         result = connectToMySQL(db).query_db(query,data)
         all_waist = []
         for item in result:
             all_waist.append(cls(item))
-        print("Get all WAIST result is", all_waist)
+        # print("Get all WAIST result is", all_waist)
         return all_waist
 
     @classmethod
     def get_bottom(cls, data):
         query = """SELECT * FROM items
-                JOIN profiles on items.profile_id = profiles.id
-                JOIN users on users.id = profiles.user_id
+                JOIN users on users.id = items.user_id
                 WHERE category LIKE 'bottom' and users.id =%(user_id)s;"""
         result = connectToMySQL(db).query_db(query,data)
         all_bottom = []
         for item in result:
             all_bottom.append(cls(item))
-        print("Get all BOTTOM result is", all_bottom)
+        # print("Get all BOTTOM result is", all_bottom)
         return all_bottom
 
     @classmethod
     def get_footwear(cls, data):
         query = """SELECT * FROM items
-                JOIN profiles on items.profile_id = profiles.id
-                JOIN users on users.id = profiles.user_id
+                JOIN users on users.id = items.user_id
                 WHERE category LIKE 'footwear' and users.id =%(user_id)s;"""
         result = connectToMySQL(db).query_db(query,data)
         all_footwear = []
         for item in result:
             all_footwear.append(cls(item))
-        print("Get all FOOTWEAR result is", all_footwear)
+        # print("Get all FOOTWEAR result is", all_footwear)
         return all_footwear
         
     @classmethod
     def get_accessory(cls, data):
         query = """SELECT * FROM items
-                JOIN profiles on items.profile_id = profiles.id
-                JOIN users on users.id = profiles.user_id
+                JOIN users on users.id = items.user_id
                 WHERE category LIKE 'accessory' and users.id =%(user_id)s;"""
         result = connectToMySQL(db).query_db(query,data)
         all_accessory = []
         for item in result:
             all_accessory.append(cls(item))
-        print("Get all ACCESSORY result is", all_accessory)
+        # print("Get all ACCESSORY result is", all_accessory)
         return all_accessory
 
 
@@ -184,7 +188,7 @@ class Item:
         parsed_data['color'] = data['color']
         parsed_data['price'] = int(data['price'])
         parsed_data['image'] = NULL
-        parsed_data['profile_id'] = data['profile_id']
+        parsed_data['user_id'] = data['user_id']
         return parsed_data      
 
     @staticmethod

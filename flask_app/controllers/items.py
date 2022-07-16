@@ -40,10 +40,6 @@ def showitem(id):
     if 'user_id' not in session:
         flash("Please log back in")
         return redirect ('/')
-    print ("$$$$ ID is", id, "ID TYPE is", type(id))
-    if id == "reject":
-        #add flash message
-        return redirect ('/showitem')
     data = {"id" : id }
     gotitem = item.Item.get_item_by_id(data)
     data = {"user_id" : session['user_id'] }
@@ -89,7 +85,7 @@ def edityouritem():
     edited_item = item.Item.edit_item(data)
     pageid = request.form['id']
     newpage = f'/showitem/{pageid}'
-    print("@@@@@@@ new page is" , newpage)
+    # print("@@@@@@@ new page is" , newpage)
     return redirect (newpage)
     #note this does not include images, images removed from parsed data
 

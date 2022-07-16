@@ -72,12 +72,12 @@
                     <div class="mb-1">
                         <label for="category" class="form-label">Category:</label>
                         <select class="form-select" aria-label="Default select example" name="category">
-                            <option value="headwear">Headwear</option>
-                            <option value="top">Top</option>
-                            <option value="waist">Waist</option>
-                            <option value="bottom">Bottom</option>
-                            <option value="footwear">Footwear</option>
-                            <option value="accessory">Accessory</option>
+                            <option value="Headwear">Headwear</option>
+                            <option value="Top">Top</option>
+                            <option value="Waist">Waist</option>
+                            <option value="Bottom">Bottom</option>
+                            <option value="Footwear">Footwear</option>
+                            <option value="Accessory">Accessory</option>
                         </select>
                     </div>
                     <div class="mb-1">
@@ -99,7 +99,7 @@
                     <div class="mb-1">
                         <label for="price" class="form-label">Price: (please use your local currency)</label>
                         <input type="number" class="form-control" name = 'price' id='price' min="0">
-                        <input type="hidden" name="profile_id" value="{{session.profile_id}}"> 
+                        <input type="hidden" name="user_id" value="{{session.user_id}}"> 
                         <!-- session.profile_id from @app.dashboard  -->
                     </div>
                     <div>
@@ -110,9 +110,10 @@
                     </div>
                     
                     <div>
-                    <button type="submit" class="btn btn-dark mb-md-2 mt-2">Add Item</button>
+                        <button type="submit" class="btn btn-dark mb-md-2 mt-2">Add Item</button>
                     </div>
                 </form>
+                <a href="/showitem"><button class="btn btn-dark mb-md-2 mt-2">Go Back</button></a>
                 </div>
             <!-- <div class="col-sm-4"> 
                 To be used to show uploaded pic, for now uploading is an input in the left column

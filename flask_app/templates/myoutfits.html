@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Items</title>
+    <title>Your Outfits</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"> -->
     
@@ -13,12 +13,12 @@
 <body>
     <div class="container bg-light text-dark p-sm-2">
         <div class="row">
-            <div class="col-sm-12">
-                <h2 class="text-center">My Items</h2>
+            <div class="col-sm-8">
+                <h2 class="text-dark text-center m-3">My Outfits</h2>
             </div>
         </div>
-        <div class="row ">
-            <div class="col-sm-4">
+        <div class="row">
+            <div class="col-sm-3">
                 <div class="col-2 justify-content-start">
                     <ul class="nav nav-tabs flex-column text-dark">
                         <li class="nav-item text-dark">
@@ -52,29 +52,30 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <form action="/showitempost", method="post">
-                <label for="select">Choose your item:</label>
-                <select class="form-select mb-2" aria-label="Default select example" name="select" id="select" onchange="this.form.submit()">
-                    <option>Select an item</option>
-                    {% for item in all_items%}
-                    <option value="{{item.id}}">{{item.name}}</option>
-                    {%endfor%}
-                </select>
+            <div class="col-sm-4 mt-1">
+                <form action="/showmyoutfit", method="post">
+                    <label for="select">Choose your outfit:</label>
+                    <select class="form-select mb-2" aria-label="Default select example" name="select" id="select" onchange="this.form.submit()">
+                        {%if all_outfits == []%}
+                            <option value="0">No outfit to select</option>
+                            {%else%}
+                            <option value="0">No outfit selected</option>
+                            {%endif%}
+                            {% for outfit in all_outfits%}
+                            <option value="{{outfit.id}}">{{outfit.name}}</option>
+                            {%endfor%}
+                    </select>
                 </form>
-                <p>Name: {{gotitem.name}}</p>
-                <p>Category: {{gotitem.category}}</p>
-                <p>Type: {{gotitem.type}}</p>
-                <p>Brand: {{gotitem.brand}}</p>
-                <p>Size: {{gotitem.size}}</p>
-                <p>Color: {{gotitem.color}}</p>
-                <p>Price: {{gotitem.price}}</p>
-                <!-- image code here -->
-                {%if gotitem%}
-                <a href="/additem"><button class ="btn-dark mt-3 p-2"> Add another</button></a>
-                <a href="/edititem/{{gotitem.id}}"><button class ="btn-dark mt-3 p-2"> Edit {{gotitem.name}}</button></a>
-                <a href="/deleteitem/{{gotitem.id}}"><button class ="btn-dark mt-3 p-2"> Delete {{gotitem.name}}</button></a>
-                {%endif%}
+                    <div class="row justify-content-md-center">
+                    <p>{{headwear.name}}</p>
+                    <p>{{top.name}}</p>
+                    <p>{{waist.name}}</p>
+                    <p>{{bottom.name}}</p>
+                    <p>{{footwear.name}}</p>
+                    <p>{{acc1.name}}</p>
+                    <p>{{acc2.name}}</p>
+                    
+                    </div>
             </div>
         </div>
     </div>
