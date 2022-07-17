@@ -1,0 +1,32 @@
+
+
+.blackcloset {
+    background-image: url('img/black-closet.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo{
+    font-family: 'Great Vibes', cursive;
+    overflow: visible;
+}
+
+.largelogo{
+    font-family: 'Great Vibes', cursive;
+    font-size: 100px;
+    font-weight:500;
+}
+
+.bio40{
+    font-family: 'BioRhyme', serif;
+    font-size: 40px;
+}
+
+.bio{
+    font-family: 'BioRhyme', serif;
+    
+}
+
+.play{
+    font-family: 'Playfair Display', serif;
+}

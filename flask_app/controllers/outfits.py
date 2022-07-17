@@ -57,6 +57,8 @@ def createoutfit():
 
 @app.route("/addnewoutfit", methods=['post'])
 def addnewoutfit():
+    if not outfit.Outfit.validate(request.form):
+        return redirect ("/createoutfit")
     new_outfit = outfit.Outfit.addnewoutfit(request.form)
     pageid = new_outfit
     newpage = f'/myoutfit/{pageid}'
@@ -94,9 +96,12 @@ def editoutfit(id):
 @app.route("/editthisoutfit", methods = ['post'])
 def editthisoutfit():
     print(request.form)
+    pageid = request.form['id']
+    if not outfit.Outfit.validate(request.form):
+        newpage = f'/editoutfit/{pageid}'
+        return redirect (newpage)
     data = request.form
     edited_outfit = outfit.Outfit.editoutfit(data)
-    pageid = request.form['id']
     print("$$$$$$$$$$$$$ Pagieid =", pageid)
     newpage = f'/myoutfit/{pageid}'
     return redirect (newpage)

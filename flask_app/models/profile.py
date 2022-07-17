@@ -47,23 +47,23 @@ class Profile:
         is_valid = True
         #firts_name
         if len(newuser['first_name'])<1:
-            flash("Please enter your first name", 'profileerror')
+            flash("Please enter your first name.", 'profileerror')
             is_valid = False
         #last_name
         if len(newuser['last_name'])<1:
-            flash("Please enter your last name", 'profileerror')
+            flash("Please enter your last name.", 'profileerror')
             is_valid = False        
         #birthday
         if (newuser["birthday"])=="":
-            flash("Please enter your birthdate", "profileerror")
+            flash("Please enter your birthdate.", "profileerror")
             is_valid = False
         else: 
             if (date.fromisoformat(newuser['birthday'])) >= date.today():
-                flash("Birthdate cannot be today or the future", "profileerror")
+                flash("Birthdate cannot be today or in the future.", "profileerror")
                 is_valid = False
         #country
         if (newuser["country"])=="":
-            flash("Please select your country or residence", "profileerror")
+            flash("Please select your country or residence.", "profileerror")
             is_valid = False
         return is_valid
 

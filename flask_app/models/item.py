@@ -148,24 +148,26 @@ class Item:
         # print("Get all ACCESSORY result is", all_accessory)
         return all_accessory
 
-
     @staticmethod
     def validate(newitem):
         is_valid = True
         #item name
         if len(newitem['name'])<1:
-            flash("Please name your new item", 'itemerror')
+            flash("Please name your item.", 'itemerror')
             is_valid = False        
         #category
         if len(newitem['category'])=="":
-            flash("Please select a category", 'itemerror')
+            flash("Please select a category.", 'itemerror')
             is_valid = False
-        #country
-        if (newitem["brand"])=="":
+        #type
+        if len(newitem['type'])<1:
+            flash("Please enter a type.", 'itemerror')
+            is_valid = False
+        #brand
+        if len(newitem["brand"])<1:
             flash("Please enter a brand name (enter: 'Unknown' if you don't know)", "itemerror")
             is_valid = False
         return is_valid
-
 
     @staticmethod
     def parsed_validate_data(data):

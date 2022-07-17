@@ -42,9 +42,8 @@ class Outfit:
 
     @classmethod #get all user's outfits
     def get_all_outfits_by_user_id(cls,data):
-        query = """SELECT * from outfits
-                    # LEFT JOIN users on users.id = outfits.user_id
-                    # WHERE user.id = %(user_id)s;"""
+        query = """SELECT * from outfits WHERE user_id = %(user_id)s;"""
+        print("$$$$GET ALL$$$$", data)
         result = connectToMySQL(db).query_db(query,data)
         all_outfits = []
         for item in result:
@@ -68,3 +67,31 @@ class Outfit:
         result = connectToMySQL(db).query_db(query,data)
         print ("DDDEEELLLEEETTEEE result", result)
         return result
+
+    @staticmethod 
+    def validate(newoutfit):
+        is_valid = True
+        count = 0
+        if len(newoutfit['name'])<1:
+            flash("Please name your outfit.", 'outfiterror')
+            is_valid = False        
+        #category
+        if (newoutfit['headwear'])=='0':
+            count += 1
+        if (newoutfit['top'])=='0':
+            count += 1
+        if (newoutfit['waist'])=='0':
+            count += 1
+        if (newoutfit['bottom'])=='0':
+            count += 1
+        if (newoutfit['footwear'])=='0':
+            count += 1
+        if (newoutfit['acc1'])=='0':
+            count += 1
+        if (newoutfit['acc2'])=='0':
+            count += 1
+        if count>6:
+            flash("Please select at least two items", "outfiterror")
+            is_valid = False
+        return is_valid
+

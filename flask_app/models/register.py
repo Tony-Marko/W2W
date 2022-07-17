@@ -35,20 +35,20 @@ class Register:
             is_valid = False
         #email
         if not EMAIL_REGEX.match(newuser['email']):
-            flash("Invalid email address", 'error')
+            flash("Invalid email address.", 'error')
             is_valid = False
         #password
         if len(newuser['password'])<8:
-            flash("Password must be at least 8 characters", 'error')
+            flash("Password must be at least 8 characters.", 'error')
             is_valid = False
         if str.islower(newuser['password']) == True:
-            flash("Password must contain at least one uppercase character", 'error')
+            flash("Password must contain at least one uppercase character.", 'error')
             is_valid = False
         if any([char.isdigit() for char in newuser['password']]) == False:
-            flash("Password must contain at least one number", 'error')
+            flash("Password must contain at least one number.", 'error')
             is_valid = False
         if newuser['password'] != newuser['confirm_password']:
-            flash("Passwords do not match")
+            flash("Passwords do not match. Please try again.", 'error')
             is_valid = False
         return is_valid
 

@@ -5,13 +5,6 @@ from flask import render_template, redirect, request, session, flash
 from flask_app.models import item
 
 # //////READ////////
-@app.route("/wardrobe")
-def wardrobe():
-    if 'user_id' not in session:
-        flash("Please log back in")
-        return redirect ('/')
-    return render_template ('wardrobe.html')
-
 @app.route("/additem")
 def additem():
     if 'user_id' not in session:
@@ -80,11 +73,12 @@ def addnewitem():
 # ////////UPDATE///////////
 @app.route("/edityouritem", methods = ['post'])
 def edityouritem():
+    pageid = request.form['id']
     if not item.Item.validate(request.form):
-        return redirect ("/additem")
+        newpage = f'/edititem/{pageid}'
+        return redirect (newpage)
     data = item.Item.parsed_edit_data(request.form)
     edited_item = item.Item.edit_item(data)
-    pageid = request.form['id']
     newpage = f'/showitem/{pageid}'
     # print("@@@@@@@ new page is" , newpage)
     return redirect (newpage)
@@ -96,5 +90,6 @@ def edityouritem():
 def deleteitem(id):
     data = {"id" : id }
     deleted_item = item.Item.delete_item(data)
+    flash("Item has been deleted", "delete")
     return redirect ("/showitem")
 
