@@ -48,13 +48,6 @@ def edititem(id):
     gotitem = item.Item.get_item_by_id(data)    
     return render_template ("edititem.html", gotitem = gotitem)
     
-@app.route("/randomize")
-def randomize():
-    if 'user_id' not in session:
-        flash("Please log back in")
-        return redirect ('/')
-    return render_template ('randomize.html')
-
 # ////////CREATE//////////
 @app.route("/addnewitem", methods = ['post'])
 def addnewitem():

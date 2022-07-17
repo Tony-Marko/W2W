@@ -30,3 +30,13 @@
 .play{
     font-family: 'Playfair Display', serif;
 }
+
+.play40{
+    font-family: 'Playfair Display', serif;
+    font-weight:500;
+    font-size: 40px;
+}
+
+.gray{
+    color: gray
+}

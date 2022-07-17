@@ -204,3 +204,14 @@ class Item:
         parsed_data['price'] = int(data['price'])
         #images removed for now
         return parsed_data      
+
+    
+    @classmethod
+    def randomize(cls, data):
+        print("$$$$GET ALL$$$$", data)
+        query = """SELECT * FROM items
+                WHERE category LIKE %(category)s and user_id =%(user_id)s
+                ORDER BY RAND()
+                LIMIT 1;"""
+        result = connectToMySQL(db).query_db(query,data)
+        return cls(result[0])

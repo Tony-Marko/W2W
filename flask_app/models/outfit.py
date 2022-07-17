@@ -43,7 +43,7 @@ class Outfit:
     @classmethod #get all user's outfits
     def get_all_outfits_by_user_id(cls,data):
         query = """SELECT * from outfits WHERE user_id = %(user_id)s;"""
-        print("$$$$GET ALL$$$$", data)
+
         result = connectToMySQL(db).query_db(query,data)
         all_outfits = []
         for item in result:

@@ -54,7 +54,7 @@ def createoutfit():
     all_accessory = item.Item.get_accessory(data)
     return render_template ('createoutfit.html', all_headwear = all_headwear, all_top=all_top, all_waist= all_waist, all_bottom = all_bottom, all_footwear = all_footwear, all_accessory = all_accessory)
 
-
+#////////////CREATE///////////
 @app.route("/addnewoutfit", methods=['post'])
 def addnewoutfit():
     if not outfit.Outfit.validate(request.form):
@@ -63,11 +63,6 @@ def addnewoutfit():
     pageid = new_outfit
     newpage = f'/myoutfit/{pageid}'
     return redirect (newpage)
-
-#Result from first outfit saved
-# Running Query: INSERT INTO outfits (headwear, top, waist, bottom, footwear, acc1, acc2, user_id)
-#                 VALUES ('3', '13', '14', '18', '22', '26', '0', '1');
-# Result is 1
 
 @app.route("/editoutfit/<id>")
 def editoutfit(id):
@@ -91,6 +86,20 @@ def editoutfit(id):
     acc1 = item.Item.get_item_for_outfit(gotoutfit.acc1)
     acc2 = item.Item.get_item_for_outfit(gotoutfit.acc2)
     return render_template ("editoutfit.html", gotoutfit = gotoutfit, headwear =headwear, top = top, waist = waist, bottom = bottom, footwear = footwear, acc1 = acc1, acc2 =acc2, all_headwear = all_headwear, all_top=all_top, all_waist= all_waist, all_bottom = all_bottom, all_footwear = all_footwear, all_accessory = all_accessory)
+
+@app.route("/randomize")
+def randomize():
+    if 'user_id' not in session:
+        flash("Please log back in")
+        return redirect ('/')
+    headwear = item.Item.randomize({"category": "headwear", "user_id" : session['user_id']})
+    top = item.Item.randomize({"category": "top", "user_id" : session['user_id']})
+    waist = item.Item.randomize({"category": "waist", "user_id" : session['user_id']})
+    bottom = item.Item.randomize({"category": "bottom", "user_id" : session['user_id']})
+    footwear = item.Item.randomize({"category": "footwear", "user_id" : session['user_id']})
+    acc1 = item.Item.randomize({"category": "accessory", "user_id" : session['user_id']})
+    acc2 = item.Item.randomize({"category": "accessory", "user_id" : session['user_id']})
+    return render_template ("randomize.html", headwear =headwear, top = top, waist = waist, bottom = bottom, footwear = footwear, acc1 = acc1, acc2 =acc2)
 
 # ////////UPDATE///////////
 @app.route("/editthisoutfit", methods = ['post'])
