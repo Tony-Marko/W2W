@@ -39,10 +39,8 @@ class Item:
         all_items = []
         for item in result:
             all_items.append(cls(item))
-
         return all_items
         
-
     @classmethod #get an item
     def get_item_by_id(cls, data):
         query = """SELECT * from items
@@ -51,10 +49,10 @@ class Item:
         # print (result)
         return cls(result[0])
 
-    @classmethod #get an item
+    @classmethod #get an item for use by outfits
     def get_item_for_outfit(cls, data):
         if data == 0:
-            return "None"
+            return {'id' :0}
         data = {"id" : data}
         query = """SELECT * from items
                     WHERE id = %(id)s;"""

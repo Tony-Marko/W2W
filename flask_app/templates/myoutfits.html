@@ -66,7 +66,9 @@
                             {%endfor%}
                     </select>
                 </form>
-                    <div class="row justify-content-md-center">
+                <div class="row justify-content-md-center">
+                    {%if headwear or top or waist or bottom or footwear or acc1 or acc2%}
+                    <p>{{gotoutfit.name}}</p>
                     <p>{{headwear.name}}</p>
                     <p>{{top.name}}</p>
                     <p>{{waist.name}}</p>
@@ -74,8 +76,15 @@
                     <p>{{footwear.name}}</p>
                     <p>{{acc1.name}}</p>
                     <p>{{acc2.name}}</p>
-                    
-                    </div>
+                    {%endif%}
+                </div>
+                {%if gotoutfit%}
+                <a href="/createoutfit"><button class ="btn-dark mt-3 p-2"> Create another</button></a>
+                <a href="/editoutfit/{{gotoutfit.id}}"><button class ="btn-dark mt-3 p-2"> Edit {{gotoutfit.name}}</button></a>
+                <a href="/deleteoutfit/{{gotoutfit.id}}"><button class ="btn-dark mt-3 p-2"> Delete {{gotoutfit.name}}</button></a>
+                {%endif%}
+                
+                
             </div>
         </div>
     </div>

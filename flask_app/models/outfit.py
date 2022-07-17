@@ -51,59 +51,20 @@ class Outfit:
             all_outfits.append(cls(item))
         print("Get all result is", all_outfits)
         return all_outfits
-        
 
-        
+    @classmethod
+    def editoutfit(cls, data):
+        query = """UPDATE outfits 
+                    LEFT JOIN users on users.id = outfits.user_id 
+                    SET name = %(name)s, headwear = %(headwear)s, top =%(top)s, waist = %(waist)s, bottom = %(bottom)s, footwear = %(footwear)s, acc1 = %(acc1)s, acc2 = %(acc2)s 
+                    WHERE outfits.id = %(id)s and users.id = %(user_id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        print ("EEEDDDDIIITTT result", result)
+        return result
 
-#     @classmethod #edit items
-#     def edit_item(cls, data):
-#         #images removed from edit for now. Image code: , image %(image)s
-#         query = """UPDATE items SET name = %(name)s, category =%(category)s, type = %(type)s, brand = %(brand)s, size = %(size)s, color = %(color)s, price = %(price)s WHERE id = %(id)s;"""
-#         result = connectToMySQL(db).query_db(query,data)
-#         print ("EEEDDDDIIITTT result", result)
-#         return result
-
-#     @classmethod #delete an item
-#     def delete_item(cls, data):
-#         query = """DELETE FROM items where id = %(id)s"""
-#         result = connectToMySQL(db).query_db(query,data)
-#         print ("DDDEEELLLEEETTEEE result", result)
-#         return result
-
-
-
-#     @staticmethod
-#     def parsed_validate_data(data):
-#         parsed_data = {}
-#         parsed_data['name'] = data['name']
-#         parsed_data['category'] = data['category']
-#         parsed_data['brand'] = data['brand']
-#         return parsed_data      
-
-#     @staticmethod
-#     def parsed_all_data(data):
-#         parsed_data = {}
-#         parsed_data['name'] = data['name']
-#         parsed_data['category'] = data['category']
-#         parsed_data['type'] = data['type']
-#         parsed_data['brand'] = data['brand']
-#         parsed_data['size'] = data['size']
-#         parsed_data['color'] = data['color']
-#         parsed_data['price'] = int(data['price'])
-#         parsed_data['image'] = NULL
-#         parsed_data['profile_id'] = data['profile_id']
-#         return parsed_data      
-
-#     @staticmethod
-#     def parsed_edit_data(data):
-#         parsed_data = {}
-#         parsed_data['id'] = data['id']
-#         parsed_data['name'] = data['name']
-#         parsed_data['category'] = data['category']
-#         parsed_data['type'] = data['type']
-#         parsed_data['brand'] = data['brand']
-#         parsed_data['size'] = data['size']
-#         parsed_data['color'] = data['color']
-#         parsed_data['price'] = int(data['price'])
-#         #images removed for now
-#         return parsed_data      
+    @classmethod #delete an outfit
+    def delete_outfit(cls, data):
+        query = """DELETE FROM outfits where id = %(id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        print ("DDDEEELLLEEETTEEE result", result)
+        return result

@@ -54,6 +54,7 @@ def edititem(id):
     data = {"id" : id }
     gotitem = item.Item.get_item_by_id(data)    
     return render_template ("edititem.html", gotitem = gotitem)
+    
 @app.route("/randomize")
 def randomize():
     if 'user_id' not in session:
