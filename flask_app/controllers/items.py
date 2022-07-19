@@ -1,8 +1,16 @@
 from asyncio.windows_events import NULL
+from distutils.command.upload import upload
 from flask_app import app
-from flask import render_template, redirect, request, session, flash
-
 from flask_app.models import item
+from flask import render_template, redirect, request, session, flash #, url_for
+# import os
+#code to upload files, might need to import Flask from flask
+# from werkzeug.utils import secure_filename
+# UPLOAD_FOLDER = '/path/to/the/uploads'
+# ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# # app.config['MAX_CONTENT_PATH'] #use this to specify max file size
+
 
 # //////READ////////
 @app.route("/additem")
@@ -54,8 +62,14 @@ def addnewitem():
     if 'user_id' not in session:
         flash("Please log back in")
         return redirect ('/')
-    if not item.Item.validate(request.form):
+    if not item.Item.validate(request.form): #first we validata the data
         return redirect ("/additem")
+    # print("#########", request.files)
+    # newurl = f"/img/{request.form['user_id']}/{request.form['category']}" #then we create where to save the image
+    # print("#########", newurl)
+
+    # newfilename = upload.upload_file(newurl, request.files) #upload the file, return the filename
+    # request.form['image'] = newfilename
     data = item.Item.parsed_all_data(request.form)
     newitem = item.Item.new_item(data)
     session['item_id'] = newitem
@@ -78,7 +92,6 @@ def edityouritem():
     #note this does not include images, images removed from parsed data
 
 # ////////DELETE///////////
-# note: add flash messages to confirm deletions
 @app.route("/deleteitem/<id>")
 def deleteitem(id):
     data = {"id" : id }

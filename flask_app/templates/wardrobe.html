@@ -71,18 +71,11 @@
                         {% with congrats = get_flashed_messages(category_filter=["congrats"])  %}
                             {% if congrats %}
                                 {% for message in congrats %}
-                                <div class="col-sm-2">
                                 <p class="bg-dark text-light rounded-3 p-2">{{message}}</p>
-                                </div>
-                                <div class="col-sm-6">
-                                <img src="{{url_for('static', filename='img/empty-closet.jpg')}}" class="img-thumbnail border-white" alt="closet"> 
-                                </div>
                                 {% endfor %}
                             {% endif %}
                         {% endwith %}
-                        {% if not congrats%}
                         <img src="{{url_for('static', filename='img/open-wardrobe.jpg')}}" class="img-thumbnail border-white" alt="closet"> 
-                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -4,8 +4,8 @@ from flask_app import app
 from flask_app.config.mysqlconnection import connectToMySQL
 #from datetime import date //to be used for last worn section
 
-db = 'w2w'
 
+db = 'w2w'
 class Item:
     def __init__(self, data):
         self.id = data['id']
@@ -19,7 +19,7 @@ class Item:
         self.image = data['image']
         self.user_id = data['user_id']
 
-
+#///////////CREATE////////////
     @classmethod  #new item maker 
     def new_item(cls, data):
         # print("*******", data)
@@ -30,6 +30,7 @@ class Item:
         print ("Result is", result)
         return (result)
 
+#///////////READ/////////////
     @classmethod #get all user's item
     def get_all_items_by_user_id(cls,data):
         query = """SELECT * from items
@@ -60,6 +61,17 @@ class Item:
         # print (result)
         return cls(result[0])
 
+    @classmethod
+    def randomize(cls, data):
+        print("$$$$GET ALL$$$$", data)
+        query = """SELECT * FROM items
+                WHERE category LIKE %(category)s and user_id =%(user_id)s
+                ORDER BY RAND()
+                LIMIT 1;"""
+        result = connectToMySQL(db).query_db(query,data)
+        return cls(result[0])
+
+#//////////UPDATE/////////////////////
     @classmethod #edit items
     def edit_item(cls, data):
         #images removed from edit for now. Image code: , image %(image)s
@@ -67,6 +79,16 @@ class Item:
         result = connectToMySQL(db).query_db(query,data)
         print ("EEEDDDDIIITTT result", result)
         return result
+
+    @classmethod #edit image url
+    def edit_image_url(cls,data):
+        query = """UPDATE items SET image = %(image)s
+        WHERE id = %(id)s;"""
+        result = connectToMySQL(db).query_db(query,data)
+        print ("IMAGE UPDATE result", result)
+        return result
+
+#/////////DELETE////////////////
 
     @classmethod #delete an item
     def delete_item(cls, data):
@@ -148,6 +170,7 @@ class Item:
         # print("Get all ACCESSORY result is", all_accessory)
         return all_accessory
 
+#///////////VALIDATIONS///////////
     @staticmethod
     def validate(newitem):
         is_valid = True
@@ -156,7 +179,7 @@ class Item:
             flash("Please name your item.", 'itemerror')
             is_valid = False        
         #category
-        if len(newitem['category'])=="":
+        if newitem['category']=="":
             flash("Please select a category.", 'itemerror')
             is_valid = False
         #type
@@ -167,6 +190,7 @@ class Item:
         if len(newitem["brand"])<1:
             flash("Please enter a brand name (enter: 'Unknown' if you don't know)", "itemerror")
             is_valid = False
+        #images
         return is_valid
 
     @staticmethod
@@ -190,7 +214,7 @@ class Item:
         parsed_data['image'] = NULL
         parsed_data['user_id'] = data['user_id']
         return parsed_data      
-
+    
     @staticmethod
     def parsed_edit_data(data):
         parsed_data = {}
@@ -206,12 +230,5 @@ class Item:
         return parsed_data      
 
     
-    @classmethod
-    def randomize(cls, data):
-        print("$$$$GET ALL$$$$", data)
-        query = """SELECT * FROM items
-                WHERE category LIKE %(category)s and user_id =%(user_id)s
-                ORDER BY RAND()
-                LIMIT 1;"""
-        result = connectToMySQL(db).query_db(query,data)
-        return cls(result[0])
+
+
