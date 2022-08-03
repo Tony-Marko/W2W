@@ -90,6 +90,7 @@
                 <a href="/deleteitem/{{gotitem.id}}"><button class ="btn btn-dark mb-md-2 mt-2"> Delete {{gotitem.name}}</button></a>
                 {%endif%}
             </div>
+            <div class="col-sm-1"></div>
             <div class="col-sm-4"> 
                 <form action="/upload" method="post" enctype="multipart/form-data">
                     {%if gotitem%}
